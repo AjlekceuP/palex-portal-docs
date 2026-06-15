@@ -7,7 +7,8 @@ theme:
     - navigation.instant
     - navigation.expand
     - navigation.sections
-    - navigation.tabs
+    - navigation.indexes
+    - toc.follow
     - search.suggest
     - search.highlight
 
@@ -17,12 +18,14 @@ nav:
   - Home: index.md
 
   - Admin:
-      - Orders: admin/orders.md
-      - Order Files: admin/order-files.md
-      - Order Messages: admin/order-messages.md
-      - Order Language Pairs: admin/order-language-pairs.md
+      - Orders:
+          - Orders: admin/orders.md
+          - Order Files: admin/order-files.md
+          - Order Messages: admin/order-messages.md
+          - Order Language Pairs: admin/order-language-pairs.md
+      - Users:
+          - Users: admin/users.md
+          - Groups: admin/groups.md
       - Statuses: admin/statuses.md
-      - Users: admin/users.md
-      - Groups: admin/groups.md
       - Languages: admin/languages.md
       - Translations: admin/translations.md
