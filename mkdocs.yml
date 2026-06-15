@@ -3,6 +3,13 @@ site_description: Backend API documentation
 
 theme:
   name: material
+  features:
+    - navigation.instant
+    - navigation.expand
+    - navigation.sections
+    - navigation.tabs
+    - search.suggest
+    - search.highlight
 
 docs_dir: docs
 
