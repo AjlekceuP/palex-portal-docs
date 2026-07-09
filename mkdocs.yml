@@ -29,3 +29,5 @@ nav:
       - Statuses: admin/statuses.md
       - Languages: admin/languages.md
       - Translations: admin/translations.md
+  - Integrations:
+      - Events: integrations/events.md
