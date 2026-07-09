@@ -1,0 +1,15 @@
+# Table of contents
+
+* [Palex Backend API](README.md)
+* [admin](admin/README.md)
+  * [admin\_groups\_README](admin/groups.md)
+  * [admin\_languages\_README](admin/languages.md)
+  * [order-files](admin/order-files.md)
+  * [order-language-pairs](admin/order-language-pairs.md)
+  * [admin\_order\_messages\_README](admin/order-messages.md)
+  * [admin\_orders\_README](admin/orders.md)
+  * [admin\_statuses\_README](admin/statuses.md)
+  * [admin\_translations\_README](admin/translations.md)
+  * [admin\_users\_README](admin/users.md)
+* [integrations](integrations/README.md)
+  * [Интеграционные сигналы](integrations/events.md)
