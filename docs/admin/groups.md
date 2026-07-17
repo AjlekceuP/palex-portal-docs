@@ -13,7 +13,7 @@
 
 # 1. Получить список групп
 
-## `GET /admin/groups`
+## `GET /api/v1/admin/groups`
 
 Возвращает список групп с пагинацией.
 
@@ -23,7 +23,7 @@
 |-----------------|---------|------------------------------------------------------|
 | `page`          | number  | Номер страницы (по умолчанию: 1)                     |
 | `limit`         | number  | Количество записей (по умолчанию: 20, максимум: 100) |
-| `search`        | string  | Поиск по названию группы **(не используется)**       |
+| `search`        | string  | Зарезервирован для поиска по названию группы (в текущей версии не используется)       |
 | `isDeleted`     | boolean | Фильтр по soft delete                                |
 | `includeUsers`  | boolean | Включить список пользователей в ответ                |
 
@@ -53,7 +53,7 @@ GET `/api/v1/admin/groups?page=1&limit=10&includeUsers=true`
           {
             "id": "uuid",
             "email": "user@example.com",
-            "fullName": "Иван Иванов"
+            "fullName": "Иван Иванов",
             "company": "Corwin - Romaguera",
             "department": null            
           }
@@ -74,7 +74,7 @@ GET `/api/v1/admin/groups?page=1&limit=10&includeUsers=true`
 
 # 2. Получить группу по ID
 
-## `GET /admin/groups/:id`
+## `GET /api/v1/admin/groups/:id`
 
 Возвращает одну группу вместе со списком пользователей.
 
@@ -112,7 +112,7 @@ GET `/api/v1/admin/groups/93282efb-2e48-4ef2-9302-4d51f9f53a6a`
 
 # 3. Создать группу
 
-## `POST /admin/groups`
+## `POST /api/v1/admin/groups`
 
 ### Тело запроса
 
@@ -130,7 +130,7 @@ GET `/api/v1/admin/groups/93282efb-2e48-4ef2-9302-4d51f9f53a6a`
     "message": "OK",
     "data": {
         "id": "5ca14813-cc53-4e54-a53b-a3fccaa257e4",
-        "name": "",
+        "name": "Новая группа",
         "isDeleted": false,
         "createdAt": "2026-03-03T07:42:57.720Z",
         "updatedAt": "2026-03-03T07:42:57.720Z",
@@ -145,7 +145,8 @@ GET `/api/v1/admin/groups/93282efb-2e48-4ef2-9302-4d51f9f53a6a`
 
 ## `DELETE /admin/groups/:id`  
 
-!!! Удаление возможно только если в группе нет пользователей.
+## Особенности
+* Удаление возможно только если в группе нет пользователей.
 
 ### Ошибка (если есть пользователи)
 

@@ -13,7 +13,7 @@
 
 # 1. Получить список пользователей
 
-## `GET /admin/users`
+## `GET /api/v1/admin/users`
 
 Возвращает список пользователей с поддержкой фильтрации, поиска, сортировки и пагинации.
 
@@ -133,15 +133,15 @@ GET /api/v1/admin/users?role=CLIENT&company=palex
 }
 ```
 
-------------------------------------------------------------------------
+---
 
 # 2. Получить пользователя по ID
 
-## `GET /admin/users/:id`
+## `GET /api/v1/admin/users/:id`
 
 ## Пример запроса
 ```http
-GET `/api/v1/admin/users/cac9dc11-f795-4cf6-841b-c77d9641231f`
+GET /api/v1/admin/users/cac9dc11-f795-4cf6-841b-c77d9641231f
 ```
 
 ### Пример ответа
@@ -172,16 +172,18 @@ GET `/api/v1/admin/users/cac9dc11-f795-4cf6-841b-c77d9641231f`
     }
 }
 ```
-
-------------------------------------------------------------------------
+---
 
 # 3. Обновить пользователя
 
-## `PATCH /admin/users/:id`
+## `PATCH /api/v1/admin/users/:id`
 
-Обновляет данные пользователя.  
-Поддерживает **частичное обновление (PATCH)** — можно передать одно или несколько полей.  
-Пустой запрос запрещён.  
+## Особенности
+
+* Поддерживается частичное обновление.
+* Можно передать любое количество полей.
+* Необходимо передать хотя бы одно поле.
+
 ## Тело запроса (JSON)
 
 Можно передать **любое количество полей** из списка ниже.
@@ -217,79 +219,30 @@ PATCH /api/v1/admin/users/cac9dc11-f795-4cf6-841b-c77d9641231f
 }
 ```
 
-### Пример ответа
-``` json
-{
-    "success": true,
-    "message": "OK",
-    "data": {
-        "id": "cac9dc11-f795-4cf6-841b-c77d9641231f",
-        "firstName": "Ivan",
-        "lastName": "Ivanov",
-        "company": "Palex",
-        "department": "",
-        "post": null,
-        "email": "andrianova@palexgroup.com",
-        "phone": "",
-        "isBlocked": true,
-        "role": "CLIENT",
-        "language": "en",
-        "groupId": null,
-        "isDeleted": false,
-        "createdAt": "2019-05-20T11:21:14.323Z",
-        "updatedAt": "2026-03-10T08:25:55.488Z",
-        "deletedAt": null,
-        "lastLoginAt": null,
-        "emailNotifications": true
-        
-    }
-}
-```
-------------------------------------------------------------------------
+**Ответ:** содержит объект пользователя в формате, описанном в разделе **«Получить пользователя по ID»**.
+
+---
 
 # 4. Удалить пользователя (Soft Delete)
 
-## `DELETE /admin/users/:id`
+## `DELETE /api/v1/admin/users/:id`
 
-Выполняет **soft delete** пользователя.  
-Удалённые пользователи могут быть восстановлены.  
+## Особенности
+* Выполняет **soft delete** пользователя.  
+* Удалённые пользователи могут быть восстановлены.  
 
 ## Пример запроса
 ```http
 DELETE /api/v1/admin/users/cac9dc11-f795-4cf6-841b-c77d9641231f
 ```
-### Пример ответа
-``` json
-{
-    "success": true,
-    "message": "OK",
-    "data": {
-        "id": "cac9dc11-f795-4cf6-841b-c77d9641231f",
-        "firstName": "Ivan",
-        "lastName": "Ivanov",
-        "company": "Palex",
-        "department": "",
-        "post": null,
-        "email": "andrianova@palexgroup.com",
-        "phone": "",
-        "isBlocked": true,
-        "role": "CLIENT",
-        "language": "en",
-        "groupId": null,
-        "isDeleted": true,
-        "createdAt": "2019-05-20T11:21:14.323Z",
-        "updatedAt": "2026-03-10T08:47:13.567Z",
-        "deletedAt": "2026-03-10T08:47:13.565Z",
-        "lastLoginAt": null,
-        "emailNotifications": true
-    }
-}
-```
-------------------------------------------------------------------------
+
+**Ответ:** содержит объект пользователя в формате, описанном в разделе **«Получить пользователя по ID»**.
+
+---
 
 # 5. Восстановить пользователя
 
-## `POST /admin/users/:id/restore`
+## `POST /api/v1/admin/users/:id/restore`
 
 Восстанавливает ранее удалённого пользователя.
 
@@ -297,43 +250,20 @@ DELETE /api/v1/admin/users/cac9dc11-f795-4cf6-841b-c77d9641231f
 ```http
 POST /api/v1/admin/users/cac9dc11-f795-4cf6-841b-c77d9641231f
 ```
-### Пример ответа
-``` json
-{
-    "success": true,
-    "message": "OK",
-    "data": {
-        "id": "cac9dc11-f795-4cf6-841b-c77d9641231f",
-        "firstName": "Ivan",
-        "lastName": "Ivanov",
-        "company": "Palex",
-        "department": "",
-        "post": null,
-        "email": "andrianova@palexgroup.com",
-        "phone": "",
-        "isBlocked": true,
-        "role": "CLIENT",
-        "language": "en",
-        "groupId": null,
-        "isDeleted": false,
-        "createdAt": "2019-05-20T11:21:14.323Z",
-        "updatedAt": "2026-03-10T08:50:32.166Z",
-        "deletedAt": null,
-        "lastLoginAt": null,
-        "emailNotifications": true
-    }
-}
-```
+
+**Ответ:** содержит объект пользователя в формате, описанном в разделе **«Получить пользователя по ID»**.
+
 ------------------------------------------------------------------------
 
 # 6. Изменить пароль пользователя
 
-## `POST /admin/users/:id/password`
+## `POST /api/v1/admin/users/:id/password`
 
 Изменяет пароль пользователя.  
-После изменения пароля:
-- **все активные сессии пользователя удаляются**
-- пользователю необходимо **войти в систему заново**
+
+## Особенности
+* Все активные сессии пользователя завершаются.
+* Пользователю необходимо войти в систему повторно.
 
 ## Пример запроса
 ```http
@@ -369,7 +299,7 @@ POST /api/v1/admin/users/cac9dc11-f795-4cf6-841b-c77d9641231f/password
 
 # 7. Создание пользователя
 
-## `POST /admin/users`
+## `POST /api/v1/admin/users`
 
 Создаёт нового пользователя и отправляет ему **приглашение (invite)** на установку пароля.
 
@@ -394,7 +324,7 @@ POST /api/v1/admin/users/cac9dc11-f795-4cf6-841b-c77d9641231f/password
 ## Пример запроса
 
 ```http
-POST /api/v1/admin/users
+POST /api/v1/api/v1/admin/users
 ```
 
 ### Тело запроса
@@ -410,38 +340,11 @@ POST /api/v1/admin/users
 }
 ```
 
-### Пример ответа
-``` json
-{
-    "success": true,
-    "message": "OK",
-    "data": {
-        "id": "f56b040e-08c5-4b09-8671-033c487fce60",
-        "firstName": "Ivan",
-        "lastName": "Ivanov",
-        "fullName": "Ivan Ivanov",
-        "company": "Palex",
-        "department": "IT",
-        "post": null,
-        "email": "ivan@example.com",
-        "phone": "999999999",
-        "isBlocked": false,
-        "role": "CLIENT",
-        "language": "en",
-        "groupId": null,
-        "isDeleted": false,
-        "createdAt": "2026-03-12T04:40:45.697Z",
-        "updatedAt": "2026-03-12T04:40:45.697Z",
-        "deletedAt": null,
-        "lastLoginAt": null,
-        "emailNotifications": true
-    }
-}
-```
+**Ответ:** содержит объект пользователя в формате, описанном в разделе **«Получить пользователя по ID»**.
 
 # 8. Повторная отправка приглашения
 
-## `POST /admin/users/:id/resend-invite`
+## `POST /api/v1/admin/users/:id/resend-invite`
 
 Отправляет пользователю **новое приглашение (invite)** для установки пароля.  
 

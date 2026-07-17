@@ -20,7 +20,7 @@
 |------------|---------|----------------------------------------------|
 | page       | number  | Номер страницы                               |
 | limit      | number  | Количество записей                           |
-| search     | string  | Поиск по тексту и автору                     |
+| search     | string  | Поиск по тексту сообщения и имени автора.                     |
 | authorType | string  | Тип автора (`USER`, `INTEGRATION`, `SYSTEM`) |
 | isDeleted  | boolean | Фильтр по удалённым                          |
 
@@ -126,9 +126,13 @@ GET `/api/v1/admin/orders/99d4f19c-b2eb-44ee-9344-495945b9b761/messages/2742f935
 
 ### POST `/api/v1/admin/orders/:orderId/messages`
 
-- Если authorType=USER, то externalAuthor пусто, при выводе используется данные userId от которого создается сообщение
-- Если authorType=INTEGRATION, необходимо указать externalAuthor
-- Если authorType=INTEGRATION можно указать createdAt
+## Особенности
+
+* Если `authorType = USER`, поле `externalAuthor` не используется. Имя автора определяется по пользователю (`userId`).
+
+* Если `authorType = INTEGRATION`, необходимо указать поле `externalAuthor`.
+
+* Для сообщений с `authorType = INTEGRATION` допускается передача собственного значения `createdAt`.
 
 ## Пример
 
@@ -157,50 +161,7 @@ POST `/api/v1/admin/orders/99d4f19c-b2eb-44ee-9344-495945b9b761/messages/`
 }
 ```
 
-### Ответ
-
-```json
-{
-    "success": true,
-    "message": "OK",
-    "data": {
-        "id": "feb2dda4-381f-45e4-b29e-609e62791a3b",
-        "orderId": "99d4f19c-b2eb-44ee-9344-495945b9b761",
-        "userId": "df5e9704-934e-4f8f-ac60-286799c4a714",
-        "user": {
-            "id": "df5e9704-934e-4f8f-ac60-286799c4a714",
-            "fullName": "System Administrator"
-        },
-        "authorType": "USER",
-        "externalAuthor": null,
-        "text": "Message with files",
-        "createdAt": "2026-03-18T02:10:55.744Z",
-        "updatedAt": "2026-03-18T02:10:55.744Z",
-        "isDeleted": false,
-        "deletedAt": null,
-        "files": [
-            {
-                "id": "7d5bc29c-2b52-4213-982d-237641ba321b",
-                "name": "file1.pdf",
-                "originalName": "file1.pdf",
-                "storageKey": "test/file1.pdf",
-                "size": 123,
-                "mime": "application/pdf",
-                "createdAt": "2026-03-18T02:10:55.756Z"
-            },
-            {
-                "id": "2d6f39d9-06c2-4b67-9a99-d1317f4771e3",
-                "name": "file2.txt",
-                "originalName": "file2.txt",
-                "storageKey": "test/file2.txt",
-                "size": null,
-                "mime": null,
-                "createdAt": "2026-03-18T02:10:55.756Z"
-            }
-        ]
-    }
-}
-```
+**Ответ:** содержит объект сообщения в формате, описанном в разделе **«Получить сообщение по ID»**.
 
 ---
 
@@ -214,11 +175,15 @@ POST `/api/v1/admin/orders/99d4f19c-b2eb-44ee-9344-495945b9b761/messages/`
 
 ### DELETE `/api/v1/admin/orders/:orderId/messages/:messageId`
 
+**Ответ:** содержит объект сообщения в формате, описанном в разделе **«Получить сообщение по ID»**.
+
 ---
 
 # 6. Восстановить сообщение
 
 ### POST `/api/v1/admin/orders/:orderId/messages/:messageId/restore`
+
+**Ответ:** содержит объект сообщения в формате, описанном в разделе **«Получить сообщение по ID»**.
 
 ---
 

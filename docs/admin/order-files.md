@@ -183,28 +183,7 @@ GET /api/v1/admin/orders/0a617ff5-6346-45f8-8eb7-19f8a50b770b/files/2f158839-344
 }
 ```
 
-## Пример ответа
-
-```json
-{
-  "success": true,
-  "message": "OK",
-  "data": {
-    "id": "243462a3-fd59-4c1b-88ed-b9228ef2a06c",
-    "orderId": "0a617ff5-6346-45f8-8eb7-19f8a50b770b",
-    "messageId": null,
-    "originalName": null,
-    "type": "SOURCE",
-    "name": "document.pdf",
-    "storageKey": "files/doc.pdf",
-    "size": null,
-    "mime": null,
-    "isDeleted": false,
-    "createdAt": "2026-05-04T10:04:33.489Z",
-    "deletedAt": null
-  }
-}
-```
+**Ответ:** содержит объект файла в формате, описанном в разделе **«Получить файл»**.
 
 ---
 
@@ -220,28 +199,7 @@ GET /api/v1/admin/orders/0a617ff5-6346-45f8-8eb7-19f8a50b770b/files/2f158839-344
 DELETE /api/v1/admin/orders/0a617ff5-6346-45f8-8eb7-19f8a50b770b/files/2f158839-344c-4c26-93dd-d3cd7ecf2074
 ```
 
-## Пример ответа
-
-```json
-{
-  "success": true,
-  "message": "OK",
-  "data": {
-    "id": "2f158839-344c-4c26-93dd-d3cd7ecf2074",
-    "orderId": "0a617ff5-6346-45f8-8eb7-19f8a50b770b",
-    "messageId": null,
-    "originalName": "ulrich medical_Quote No._20200624_52823.xlsx",
-    "type": "QUOTE",
-    "name": "ulrich-medicalquote-no2020062452823.xlsx",
-    "storageKey": "uploads/188-f9eecf6b-3c3c-4a6a-9d08-30c66d512321/ulrich medical_Quote No._20200624_52823.xlsx",
-    "size": 0,
-    "mime": "",
-    "isDeleted": true,
-    "createdAt": "2026-04-03T04:32:32.721Z",
-    "deletedAt": "2026-05-04T10:06:16.580Z"
-  }
-}
-```
+**Ответ:** содержит объект файла в формате, описанном в разделе **«Получить файл»**.
 
 ---
 
@@ -257,25 +215,4 @@ DELETE /api/v1/admin/orders/0a617ff5-6346-45f8-8eb7-19f8a50b770b/files/2f158839-
 POST /api/v1/admin/orders/0a617ff5-6346-45f8-8eb7-19f8a50b770b/files/243462a3-fd59-4c1b-88ed-b9228ef2a06c/restore
 ```
 
-## Пример ответа
-
-```json
-{
-  "success": true,
-  "message": "OK",
-  "data": {
-    "id": "243462a3-fd59-4c1b-88ed-b9228ef2a06c",
-    "orderId": "0a617ff5-6346-45f8-8eb7-19f8a50b770b",
-    "messageId": null,
-    "originalName": null,
-    "type": "SOURCE",
-    "name": "document.pdf",
-    "storageKey": "files/doc.pdf",
-    "size": null,
-    "mime": null,
-    "isDeleted": false,
-    "createdAt": "2026-05-04T10:04:33.489Z",
-    "deletedAt": null
-  }
-}
-```
+**Ответ:** содержит объект файла в формате, описанном в разделе **«Получить файл»**.

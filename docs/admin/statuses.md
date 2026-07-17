@@ -13,7 +13,7 @@
 
 # 1. Получить список статусов
 
-## `GET /admin/statuses`
+## `GET /api/v1/admin/statuses`
 
 Возвращает список статусов.
 
@@ -30,7 +30,7 @@
 
 | Параметр   | Тип     | Описание                          |
 |------------|---------|-----------------------------------|
-| type       | enum    | ORDER, ORDER_LANGUAGE, QUOTE      |
+| type       | enum    | Тип статуса (`ORDER`, `ORDER_LANGUAGE`, `QUOTE`)      |
 | isArchived | boolean | Фильтр по архивированным статусам |
 
 ------------------------------------------------------------------------
@@ -74,7 +74,7 @@ GET `/api/v1/admin/statuses?page=1&limit=10`
 
 # 2. Получить статус по ID
 
-## `GET /admin/statuses/:id`
+## `GET /api/v1/admin/statuses/:id`
 
 Возвращает информацию о конкретном статусе.
 
@@ -104,7 +104,7 @@ GET `/api/v1/admin/statuses/dcd7c780-4296-4069-8792-1bbebe70baec`
 
 # 3. Создать статус
 
-## `POST /admin/statuses`
+## `POST /api/v1/admin/statuses`
 
 ### Body параметры
 
@@ -153,7 +153,7 @@ POST /api/v1/admin/statuses
 
 # 4. Обновить статус
 
-## `PATCH /admin/statuses/:id`
+## `PATCH /api/v1/admin/statuses/:id`
 
 ### Body параметры
 
@@ -198,17 +198,21 @@ PATCH /api/v1/admin/statuses/6a55b548-19db-4aad-b637-b76a7f747d68
 
 # 5. Архивировать статус
 
-## `POST /admin/statuses/:id/archive`
+## `POST /api/v1/admin/statuses/:id/archive`
 
 Переводит статус в архив.
+
+**Ответ:** содержит объект статуса в формате, описанном в разделе **«Получить статус по ID»**.
 
 ---
 
 # 6. Восстановить статус
 
-## `POST /admin/statuses/:id/restore`
+## `POST /api/v1/admin/statuses/:id/restore`
 
 Восстанавливает ранее архивированный статус.
+
+**Ответ:** содержит объект статуса в формате, описанном в разделе **«Получить статус по ID»**.
 
 ---
 

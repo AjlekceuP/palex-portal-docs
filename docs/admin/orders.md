@@ -215,43 +215,6 @@ PATCH /api/v1/admin/orders/847db0fb-81c5-461b-b430-561760681076
 
 ---
 
-## Пример ответа
-
-```json
-{
-  "success": true,
-  "message": "OK",
-  "data": {
-    "id": "2852de36-717b-4257-9958-2694494c9943",
-    "userId": "a39de45a-6048-4bd9-a4bb-04f3a92770bd",
-    "statusId": "26dd7ad1-ad48-47cd-803a-237c3391b2e3",
-    "trackingNumber": "ODB005811",
-    "productName": "10",
-    "description": "<p>k hkjh kjkj</p>",
-    "specialNotes": "<p>kj hlkjhlkjhlk</p>",
-    "progress": 0,
-    "manager": null,
-    "preferAt": "2026-06-09T21:00:00.000Z",
-    "deadline": null,
-    "isDraft": false,
-    "isDeleted": false,
-    "onHold": true,
-    "createdAt": "2026-06-10T09:51:12.954Z",
-    "updatedAt": "2026-06-15T07:14:14.618Z",
-    "deletedAt": null,
-    "draftAt": null,
-    "holdAt": null,
-    "user": {
-      "id": "a39de45a-6048-4bd9-a4bb-04f3a92770bd",
-      "email": "g.tentimishov@ulrichmedical.com",
-      "fullName": "Galia Tentimishov"
-    },
-    "status": {
-      "id": "26dd7ad1-ad48-47cd-803a-237c3391b2e3",
-      "name": "Closed"
-    }
-  }
-}
-```
+**Ответ:** содержит объект заказа в формате, описанном в разделе **«Получить заказ по ID»**.
 
 

@@ -151,14 +151,11 @@ GET /api/v1/admin/orders/847db0fb-81c5-461b-b430-561760681076/language-pairs/758
   }
 }
 ```
-
 ---
 
 # 3. Создать языковую пару
 
 ## `POST /api/v1/admin/orders/:orderId/language-pairs`
-
----
 
 ## Пример запроса
 
@@ -177,49 +174,12 @@ POST /api/v1/admin/orders/847db0fb-81c5-461b-b430-561760681076/language-pairs/
 }
 ```
 
-### Пример ответа
-```json
-{
-    "success": true,
-    "message": "OK",
-    "data": {
-        "id": "5c6ddaa8-070e-4a81-8727-22aafb436f22",
-        "orderId": "847db0fb-81c5-461b-b430-561760681076",
-        "sourceLanguageId": "929a8af6-320d-48c4-b21e-1ca4088d6f5d",
-        "targetLanguageId": "3ef7b6bd-fcd8-49bc-984e-5bbc725347cf",
-        "currentStatusId": "d3a5b934-baa2-437b-a59a-5969802d55d8",
-        "currentStatusDueTo": null,
-        "service": "TRANSLATION",
-        "progress": 0,
-        "deadline": null,
-        "sourceLanguage": {
-            "id": "929a8af6-320d-48c4-b21e-1ca4088d6f5d",
-            "name": "Basque"
-        },
-        "targetLanguage": {
-            "id": "3ef7b6bd-fcd8-49bc-984e-5bbc725347cf",
-            "name": "French (Swiss)"
-        },
-        "currentStatus": {
-            "id": "d3a5b934-baa2-437b-a59a-5969802d55d8",
-            "name": "New"
-        },
-        "isDeleted": false,
-        "onHold": false,
-        "createdAt": "2026-05-04T08:50:52.431Z",
-        "updatedAt": "2026-05-04T08:50:52.431Z",
-        "deletedAt": null,
-        "holdAt": null
-    }
-}
-```
-
----
+**Ответ:** содержит объект языковой пары в формате, описанном в разделе **«Получить языковую пару»**.
 
 ## Особенности
 
 * Нельзя создать дубликат пары (source + target + service)
-* Если пара была удалена → необходимо использовать restore
+* Если языковая пара была ранее удалена (soft delete), для ее восстановления необходимо использовать метод `restore`.
 
 ---
 
@@ -228,8 +188,6 @@ POST /api/v1/admin/orders/847db0fb-81c5-461b-b430-561760681076/language-pairs/
 ## `PATCH /api/v1/admin/orders/:orderId/language-pairs/:languagePairId`
 
 Поддерживает частичное обновление.
-
----
 
 ## Пример запроса
 
@@ -241,12 +199,11 @@ PATCH /api/v1/admin/orders/847db0fb-81c5-461b-b430-561760681076/language-pairs/7
 
 ```json
 {
-  "targetLanguageId": "2b4e5909-f4db-468d-b850-9d5a7af5fff5",
-  "service": "OTHER"
+  "targetLanguageId": "2b4e5909-f4db-468d-b850-9d5a7af5fff5"
 }
 ```
 
----
+**Ответ:** содержит объект языковой пары в формате, описанном в разделе **«Получить языковую пару»**.
 
 ## Особенности
 
@@ -255,58 +212,61 @@ PATCH /api/v1/admin/orders/847db0fb-81c5-461b-b430-561760681076/language-pairs/7
 
 ---
 
-## Пример ответа
+# 5. Массовое обновление языковых пар
+
+## `PATCH /api/v1/admin/orders/:orderId/language-pairs/bulk`  
+
+Позволяет за один запрос обновить несколько языковых пар заказа.
+
+Для каждой языковой пары можно изменить:
+
+- текущий статус (`currentStatusId`);
+- дату выполнения (`deadline`);
+- признак паузы (`onHold`).
+
+Обновление выполняется в рамках одной транзакции.
+
+## Пример запроса
+
+```http
+PATCH /api/v1/admin/orders/847db0fb-81c5-461b-b430-561760681076/language-pairs/bulk
+```
+
+## Тело запроса
 
 ```json
 {
-  "success": true,
-  "message": "OK",
-  "data": {
-    "id": "75877e98-7196-49c4-8e62-881303e37509",
-    "orderId": "847db0fb-81c5-461b-b430-561760681076",
-    "sourceLanguageId": "0fe5e797-3181-49c1-ab27-ffd96aff8e69",
-    "targetLanguageId": "2b4e5909-f4db-468d-b850-9d5a7af5fff5",
-    "currentStatusId": "d3a5b934-baa2-437b-a59a-5969802d55d8",
-    "currentStatusDueTo": null,
-    "service": "OTHER",
-    "progress": 0,
-    "deadline": null,
-    "sourceLanguage": {
-      "id": "0fe5e797-3181-49c1-ab27-ffd96aff8e69",
-      "name": "Adyghe"
+  "items": [
+    {
+      "id": "9f5f19ca-37a5-4b98-bfad-1f54bfc787fb",
+      "currentStatusId": "cb2dd5d7-60db-45dc-9d85-4df91b3052de",
+      "deadline": "2026-08-01T10:00:00.000Z",
+      "onHold": true
     },
-    "targetLanguage": {
-      "id": "2b4e5909-f4db-468d-b850-9d5a7af5fff5",
-      "name": "Lao"
-    },
-    "currentStatus": {
-      "id": "d3a5b934-baa2-437b-a59a-5969802d55d8",
-      "name": "New"
-    },
-    "isDeleted": false,
-    "onHold": false,
-    "createdAt": "2026-04-20T09:45:09.885Z",
-    "updatedAt": "2026-05-04T09:23:50.935Z",
-    "deletedAt": null,
-    "holdAt": null
-  }
+    {
+      "id": "d3a793ab-57f6-4b93-a36a-4af9cc3dd5d2",
+      "onHold": false
+    }
+  ]
 }
 ```
 
+**Ответ:** содержит массив объектов языковых пар в формате, описанном в разделе **«Получить языковую пару»**.
+
+## Особенности  
+* При изменении статуса создается запись в истории статусов.
+* При изменении признака `onHold` создаются соответствующие сообщения.
 ---
 
-# 5. Удалить языковую пару (Soft Delete)
+
+# 6. Удалить языковую пару (Soft Delete)
 
 ## `DELETE /api/v1/admin/orders/:orderId/language-pairs/:languagePairId`
-
----
 
 ## Особенности
 
 * Пара не удаляется физически
 * Устанавливается `isDeleted = true`
-
----
 
 ## Пример запроса
 
@@ -314,58 +274,17 @@ PATCH /api/v1/admin/orders/847db0fb-81c5-461b-b430-561760681076/language-pairs/7
 DELETE /api/v1/admin/orders/847db0fb-81c5-461b-b430-561760681076/language-pairs/75877e98-7196-49c4-8e62-881303e37509
 ```
 
-## Пример ответа
-
-```json
-{
-  "success": true,
-  "message": "OK",
-  "data": {
-    "id": "75877e98-7196-49c4-8e62-881303e37509",
-    "orderId": "847db0fb-81c5-461b-b430-561760681076",
-    "sourceLanguageId": "0fe5e797-3181-49c1-ab27-ffd96aff8e69",
-    "targetLanguageId": "2b4e5909-f4db-468d-b850-9d5a7af5fff5",
-    "currentStatusId": "d3a5b934-baa2-437b-a59a-5969802d55d8",
-    "currentStatusDueTo": null,
-    "service": "OTHER",
-    "progress": 0,
-    "deadline": null,
-    "sourceLanguage": {
-      "id": "0fe5e797-3181-49c1-ab27-ffd96aff8e69",
-      "name": "Adyghe"
-    },
-    "targetLanguage": {
-      "id": "2b4e5909-f4db-468d-b850-9d5a7af5fff5",
-      "name": "Lao"
-    },
-    "currentStatus": {
-      "id": "d3a5b934-baa2-437b-a59a-5969802d55d8",
-      "name": "New"
-    },
-    "isDeleted": true,
-    "onHold": false,
-    "createdAt": "2026-04-20T09:45:09.885Z",
-    "updatedAt": "2026-05-04T09:26:52.534Z",
-    "deletedAt": "2026-05-04T09:26:52.533Z",
-    "holdAt": null
-  }
-}
-```
+**Ответ:** содержит объект языковой пары в формате, описанном в разделе **«Получить языковую пару»**.
 
 ---
 
-# 6. Восстановить языковую пару
+# 7. Восстановить языковую пару
 
-## `POST /api/v1/admin/orders/:orderId/:languagePairId/restore`
-
----
+## `POST /api/v1/admin/orders/:orderId/language-pairs/:languagePairId/restore`
 
 ## Особенности
 
-* Восстанавливает soft-deleted запись
-
----
-
+* Восстанавливает ранее удаленную (soft-deleted) языковую пару.
 
 ## Пример запроса
 
@@ -373,40 +292,4 @@ DELETE /api/v1/admin/orders/847db0fb-81c5-461b-b430-561760681076/language-pairs/
 POST /api/v1/admin/orders/847db0fb-81c5-461b-b430-561760681076/language-pairs/75877e98-7196-49c4-8e62-881303e37509/restore
 ```
 
-## Пример ответа
-
-```json
-{
-  "success": true,
-  "message": "OK",
-  "data": {
-    "id": "75877e98-7196-49c4-8e62-881303e37509",
-    "orderId": "847db0fb-81c5-461b-b430-561760681076",
-    "sourceLanguageId": "0fe5e797-3181-49c1-ab27-ffd96aff8e69",
-    "targetLanguageId": "2b4e5909-f4db-468d-b850-9d5a7af5fff5",
-    "currentStatusId": "d3a5b934-baa2-437b-a59a-5969802d55d8",
-    "currentStatusDueTo": null,
-    "service": "OTHER",
-    "progress": 0,
-    "deadline": null,
-    "sourceLanguage": {
-      "id": "0fe5e797-3181-49c1-ab27-ffd96aff8e69",
-      "name": "Adyghe"
-    },
-    "targetLanguage": {
-      "id": "2b4e5909-f4db-468d-b850-9d5a7af5fff5",
-      "name": "Lao"
-    },
-    "currentStatus": {
-      "id": "d3a5b934-baa2-437b-a59a-5969802d55d8",
-      "name": "New"
-    },
-    "isDeleted": false,
-    "onHold": false,
-    "createdAt": "2026-04-20T09:45:09.885Z",
-    "updatedAt": "2026-05-04T09:28:00.583Z",
-    "deletedAt": null,
-    "holdAt": null
-  }
-}
-```
+**Ответ:** содержит объект языковой пары в формате, описанном в разделе **«Получить языковую пару»**.
